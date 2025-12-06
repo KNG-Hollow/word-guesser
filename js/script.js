@@ -7,8 +7,10 @@ const hintDisplay = document.querySelector("#word-hint");
 
 let wordLength = 6;
 wordLengthDisplay.textContent = wordLength;
+
 let lives = 10;
 guessesDisplay.textContent = lives;
+
 let guessedLettersSet = new Set();
 
 function getImagePathArray(imageName) {
@@ -59,26 +61,33 @@ function getHint(word) {
 }
 
 function updateSequenceImage() {
-    sequenceImageDisplay.src = imageArray[sequence - 1];
-    sequenceImageDisplay.alt = `Word Guesser Image :: Sequence Number: ${sequence}`;
+    sequenceImageDisplay.src = imageArray[imageSequence - 1];
+    sequenceImageDisplay.alt = `Word Guesser Image :: Sequence Number: ${imageSequence}`;
 }
 
 function updateGuessDisplay(substring) {
-    // TODO: Update the displayed word with correct guesses
+    for (let i = 0; i < wordToGuess.length; i++) {
+        if (wordToGuess.charAt(i) == substring) {
+            guessDisplay[i] = substring;
+        }
+    }
 
+    return wordToGuessDisplay.textContent = guessDisplay.join(" ");
 }
 
 function startRound() {
     const input = document.querySelector("#input-area");
     try {
         if (gameOver) {
-            alert("Game Over! Please Reload The Page To Play Again.");
-            throw new Error("Game Over! Please Reload The Page To Play Again.");
+            alert("Game Is Over! Please Reload The Page To Play Again.");
+            throw new Error("Game Is Over! Please Reload The Page To Play Again.");
         }
         if (!input.value) {
+            alert("No Input Was Given!");
             throw new Error("No Input Given!");
         }
-        if (guessedLettersSet.has(input.value.toLowerCase())) {
+        if (guessedLettersSet.has(input.value.toUpperCase())) {
+            alert("Letter Already Guessed!");
             throw new Error("Letter Already Guessed!");
         }
 
@@ -90,7 +99,7 @@ function startRound() {
         if (!wordToGuess.includes(guess)) {
             console.log("Incorrect Guess!");
             lives--;
-            sequence++;
+            imageSequence++;
             guessesDisplay.textContent = lives;
 
             if (lives === 0) {
@@ -100,8 +109,13 @@ function startRound() {
             }
         } else {
             console.log("Correct Guess!");
-            // TODO: Update the displayed word with correct guesses
-            wordToGuessDisplay.textContent.replace("_", guess).at(wordToGuess.indexOf(guess));
+            updateGuessDisplay(guess);
+
+            if (!wordToGuessDisplay.textContent.includes("_")) {
+                gameOver = true;
+                console.log("Game Over! You have guessed the word correctly!");
+                alert(`Game Over, You Win!!! You Guessed The Word: `, wordToGuess);
+            }
         }
 
         round++;
@@ -116,8 +130,9 @@ function startRound() {
 // GAME LOGIC STARTS HERE
 
 let round = 1;
-let sequence = 1;
+let imageSequence = 1;
 let gameOver = false;
+let guessDisplay = "______".split('');
 let wordToGuess = "";
 
 getWord().then((word) => {
@@ -139,10 +154,3 @@ submitButton.addEventListener("click", () => {
     console.log("Submit Button Clicked");
     startRound();
 });
-
-/*
-while (gameOver === false) {
-
-}
-*/
-
