@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Guesser</title>
+    <link rel="icon" type="image/png" href="assets/cha-rect-swear.svg" />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <div id="header">
+        <h1>Guess The Word</h1>
+    </div>
+    <div id="game-container">
+        <div id="info-display">
+            <div id="info-length">
+                <p>
+                    Length Of Word: <p id="word-length"></p>
+                </p>
+            </div>
+            <div id="info-lives">
+                <p>
+                    Lives: <p id="lives"></p>
+                </p>
+            </div>
+            <div id="info-used-letters">
+                <p>
+                    Letters Guessed: <p id="letters-guessed">N/A</p>
+                </p>
+            </div>
+        </div>
+        <div id="guess-display">
+            <div id="guess-progression">
+                <image id="guess-image" src="" alt="Word Guesser Image :: Round Number: 1" />
+            </div>
+            <div id="guess-word">
+                <h2 id="word-to-guess">
+                    _ _ _ _ _ _
+                </h2>
+            </div>
+            <div id="guess-hint">
+                <p>Hint: <p id="word-hint">Loading...</p></p>
+            </div>
+        </div>
+        <div id="input-display">
+            <div id="input-container">
+                <label for="input-area">Enter A Letter:</label>
+                <input type="text" id="input-area" maxlength="1" placeholder="Letter" />
+            </div>
+            <button id="input-button">Take A Guess!</button>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
+
